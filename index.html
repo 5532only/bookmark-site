@@ -1,55 +1,137 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>AI 导航站</title>
   <style>
     body {
-      font-family: "Arial", sans-serif;
-      background: #f5f7fa;
-      color: #333;
+      font-family: "Segoe UI", sans-serif;
+      background-color: #f3f6fb;
       margin: 0;
-      padding: 2rem;
+      padding: 2rem 1rem;
+      color: #333;
     }
     h1 {
       text-align: center;
       color: #2c3e50;
+      margin-bottom: 2rem;
     }
-    .link-list {
-      max-width: 600px;
-      margin: 2rem auto;
-      padding: 1rem;
-      background: #fff;
+    .search-bar {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .search-bar input {
+      width: 80%;
+      max-width: 400px;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    .section {
+      max-width: 1000px;
+      margin: 0 auto 3rem;
+    }
+
+    .section h2 {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      color: #34495e;
+      border-left: 4px solid #3498db;
+      padding-left: 10px;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .card {
+      background: #ffffff;
       border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      padding: 1rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      transition: transform 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
     }
-    .link-item {
-      margin: 1rem 0;
+
+    .card:hover {
+      transform: translateY(-4px);
     }
-    .link-item a {
+
+    .card img {
+      width: 24px;
+      height: 24px;
+    }
+
+    .card a {
       text-decoration: none;
-      color: #3498db;
-      font-size: 1.1rem;
+      color: #2c3e50;
+      font-weight: 500;
     }
-    .link-item a:hover {
-      text-decoration: underline;
+
+    .hidden {
+      display: none !important;
+    }
+
+    @media (max-width: 500px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+      .search-bar input {
+        width: 90%;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>AI 导航站</h1>
-  <div class="link-list">
-    <div class="link-item"><a href="https://platform.openai.com/docs/overview" target="_blank">OpenAI 文档</a></div>
-    <div class="link-item"><a href="https://www.kimi.com/" target="_blank">Kimi 智能助手</a></div>
-    <div class="link-item"><a href="https://app.klingai.com/cn/image-to-image/multi/new" target="_blank">Kling AI 图像转换</a></div>
-    <div class="link-item"><a href="https://chatgpt.com/" target="_blank">ChatGPT</a></div>
-    <div class="link-item"><a href="https://www.cursor.com/ja" target="_blank">Cursor 编程助手</a></div>
-    <div class="link-item"><a href="https://midjourneysref.com/" target="_blank">Midjourney 参考库</a></div>
-    <div class="link-item"><a href="https://chat.deepseek.com/" target="_blank">DeepSeek Chat</a></div>
-    <div class="link-item"><a href="https://metaso.cn/" target="_blank">Metaso AI 工具</a></div>
-    <div class="link-item"><a href="https://www.doubao.com/chat/" target="_blank">豆包助手</a></div>
-    <div class="link-item"><a href="https://gemini.google.com/app" target="_blank">Google Gemini</a></div>
+  <h1>🚀 AI 导航站</h1>
+
+  <div class="search-bar">
+    <input type="text" id="searchInput" placeholder="🔍 搜索工具…" onkeyup="filterCards()" />
   </div>
+
+  <div class="section">
+    <h2>🔧 AI 助手</h2>
+    <div class="card-grid">
+      <div class="card"><img src="https://www.google.com/s2/favicons?sz=32&domain=chatgpt.com" /><a href="https://chatgpt.com/" target="_blank">ChatGPT</a></div>
+      <div class="card"><img src="https://www.google.com/s2/favicons?sz=32&domain=kimi.com" /><a href="https://www.kimi.com/" target="_blank">Kimi 智能助手</a></div>
+      <div class="card"><img src="https://www.google.com/s2/favicons?sz=32&domain=doubao.com" /><a href="https://www.doubao.com/chat/" target="_blank">豆包助手</a></div>
+      <div class="card"><img src="https://www.google.com/s2/favicons?sz=32&domain=deepseek.com" /><a href="https://chat.deepseek.com/" target="_blank">DeepSeek Chat</a></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>🎨 图像生成</h2>
+    <div class="card-grid">
+      <div class="card"><img src="https://www.google.com/s2/favicons?sz=32&domain=klingai.com" /><a href="https://app.klingai.com/cn/image-to-image/multi/new" target="_blank">Kling AI 图像转换</a></div>
+      <div class="card"><img src="https://www.google.com/s2/favicons?sz=32&domain=midjourneysref.com" /><a href="https://midjourneysref.com/" target="_blank">Midjourney 参考库</a></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>📚 开发与资料</h2>
+    <div class="card-grid">
+      <div class="card"><img src="https://www.google.com/s2/favicons?sz=32&domain=platform.openai.com" /><a href="https://platform.openai.com/docs/overview" target="_blank">OpenAI 文档</a></div>
+      <div class="card"><img src="https://www.google.com/s2/favicons?sz=32&domain=cursor.com" /><a href="https://www.cursor.com/ja" target="_blank">Cursor 编程助手</a></div>
+      <div class="card"><img src="https://www.google.com/s2/favicons?sz=32&domain=metaso.cn" /><a href="https://metaso.cn/" target="_blank">Metaso AI 工具</a></div>
+      <div class="card"><img src="https://www.google.com/s2/favicons?sz=32&domain=gemini.google.com" /><a href="https://gemini.google.com/app" target="_blank">Google Gemini</a></div>
+    </div>
+  </div>
+
+  <script>
+    function filterCards() {
+      const input = document.getElementById("searchInput").value.toLowerCase();
+      const cards = document.querySelectorAll(".card");
+      cards.forEach(card => {
+        card.classList.toggle("hidden", !card.innerText.toLowerCase().includes(input));
+      });
+    }
+  </script>
 </body>
 </html>
