@@ -1,137 +1,348 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>AI 导航站</title>
-  <style>
-    body {
-      font-family: "Segoe UI", sans-serif;
-      background-color: #f3f6fb;
-      margin: 0;
-      padding: 2rem 1rem;
-      color: #333;
-    }
-    h1 {
-      text-align: center;
-      color: #2c3e50;
-      margin-bottom: 2rem;
-    }
-    .search-bar {
-      text-align: center;
-      margin-bottom: 2rem;
-    }
-    .search-bar input {
-      width: 80%;
-      max-width: 400px;
-      padding: 0.5rem 1rem;
-      font-size: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI工具导航站</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    .section {
-      max-width: 1000px;
-      margin: 0 auto 3rem;
-    }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
 
-    .section h2 {
-      font-size: 1.3rem;
-      margin-bottom: 1rem;
-      color: #34495e;
-      border-left: 4px solid #3498db;
-      padding-left: 10px;
-    }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
 
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 1.2rem;
-    }
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: white;
+        }
 
-    .card {
-      background: #ffffff;
-      border-radius: 12px;
-      padding: 1rem;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-      transition: transform 0.2s;
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: fadeInDown 1s ease-out;
+        }
 
-    .card:hover {
-      transform: translateY(-4px);
-    }
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
 
-    .card img {
-      width: 24px;
-      height: 24px;
-    }
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
 
-    .card a {
-      text-decoration: none;
-      color: #2c3e50;
-      font-weight: 500;
-    }
+        .category {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeInUp 0.8s ease-out;
+        }
 
-    .hidden {
-      display: none !important;
-    }
+        .category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
 
-    @media (max-width: 500px) {
-      h1 {
-        font-size: 1.5rem;
-      }
-      .search-bar input {
-        width: 90%;
-      }
-    }
-  </style>
+        .category h2 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #4a5568;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tool-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            margin: 8px 0;
+            background: #f8fafc;
+            border-radius: 12px;
+            text-decoration: none;
+            color: #2d3748;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+
+        .tool-item:hover {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-left-color: #4299e1;
+            transform: translateX(5px);
+        }
+
+        .tool-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 12px;
+            border-radius: 4px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .tool-name {
+            font-weight: 500;
+            flex: 1;
+        }
+
+        .external-icon {
+            opacity: 0.5;
+            transition: opacity 0.3s ease;
+        }
+
+        .tool-item:hover .external-icon {
+            opacity: 1;
+        }
+
+        .search-container {
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .search-box {
+            width: 100%;
+            max-width: 500px;
+            padding: 15px 20px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-box:focus {
+            background: white;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            transform: translateY(-2px);
+        }
+
+        .footer {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 40px;
+            padding: 20px;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .tools-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .category {
+                padding: 20px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <h1>🚀 AI 导航站</h1>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 AI工具导航站</h1>
+            <p>精选最优质的AI工具，助力您的创造力</p>
+        </div>
 
-  <div class="search-bar">
-    <input type="text" id="searchInput" placeholder="🔍 搜索工具…" onkeyup="filterCards()" />
-  </div>
+        <div class="search-container">
+            <input type="text" class="search-box" placeholder="搜索AI工具..." id="searchBox">
+        </div>
 
-  <div class="section">
-    <h2>🔧 AI 助手</h2>
-    <div class="card-grid">
-      <div class="card"><img src="https://www.google.com/s2/favicons?sz=32&domain=chatgpt.com" /><a href="https://chatgpt.com/" target="_blank">ChatGPT</a></div>
-      <div class="card"><img src="https://www.google.com/s2/favicons?sz=32&domain=kimi.com" /><a href="https://www.kimi.com/" target="_blank">Kimi 智能助手</a></div>
-      <div class="card"><img src="https://www.google.com/s2/favicons?sz=32&domain=doubao.com" /><a href="https://www.doubao.com/chat/" target="_blank">豆包助手</a></div>
-      <div class="card"><img src="https://www.google.com/s2/favicons?sz=32&domain=deepseek.com" /><a href="https://chat.deepseek.com/" target="_blank">DeepSeek Chat</a></div>
+        <div class="tools-grid" id="toolsGrid">
+            <div class="category" data-category="聊天对话">
+                <h2>💬 聊天对话</h2>
+                <a href="https://chatgpt.com/" class="tool-item" target="_blank">
+                    <div class="tool-icon">G</div>
+                    <div class="tool-name">ChatGPT</div>
+                    <div class="external-icon">↗</div>
+                </a>
+                <a href="https://www.kimi.com/" class="tool-item" target="_blank">
+                    <div class="tool-icon">K</div>
+                    <div class="tool-name">Kimi</div>
+                    <div class="external-icon">↗</div>
+                </a>
+                <a href="https://chat.deepseek.com/" class="tool-item" target="_blank">
+                    <div class="tool-icon">D</div>
+                    <div class="tool-name">DeepSeek</div>
+                    <div class="external-icon">↗</div>
+                </a>
+                <a href="https://www.doubao.com/chat/" class="tool-item" target="_blank">
+                    <div class="tool-icon">豆</div>
+                    <div class="tool-name">豆包</div>
+                    <div class="external-icon">↗</div>
+                </a>
+                <a href="https://gemini.google.com/" class="tool-item" target="_blank">
+                    <div class="tool-icon">G</div>
+                    <div class="tool-name">Gemini</div>
+                    <div class="external-icon">↗</div>
+                </a>
+            </div>
+
+            <div class="category" data-category="图像创作">
+                <h2>🎨 图像创作</h2>
+                <a href="https://app.klingai.com/cn/image-to-image/multi/new" class="tool-item" target="_blank">
+                    <div class="tool-icon">可</div>
+                    <div class="tool-name">可灵AI</div>
+                    <div class="external-icon">↗</div>
+                </a>
+                <a href="https://midjourneysref.com/" class="tool-item" target="_blank">
+                    <div class="tool-icon">M</div>
+                    <div class="tool-name">Midjourney参考</div>
+                    <div class="external-icon">↗</div>
+                </a>
+                <a href="https://www.canva.cn/" class="tool-item" target="_blank">
+                    <div class="tool-icon">C</div>
+                    <div class="tool-name">Canva设计</div>
+                    <div class="external-icon">↗</div>
+                </a>
+            </div>
+
+            <div class="category" data-category="开发工具">
+                <h2>🛠️ 开发工具</h2>
+                <a href="https://platform.openai.com/docs/overview" class="tool-item" target="_blank">
+                    <div class="tool-icon">O</div>
+                    <div class="tool-name">OpenAI平台</div>
+                    <div class="external-icon">↗</div>
+                </a>
+                <a href="https://www.cursor.com/ja" class="tool-item" target="_blank">
+                    <div class="tool-icon">C</div>
+                    <div class="tool-name">Cursor编辑器</div>
+                    <div class="external-icon">↗</div>
+                </a>
+                <a href="https://www.coze.cn/" class="tool-item" target="_blank">
+                    <div class="tool-icon">扣</div>
+                    <div class="tool-name">扣子</div>
+                    <div class="external-icon">↗</div>
+                </a>
+            </div>
+
+            <div class="category" data-category="搜索引擎">
+                <h2>🔍 智能搜索</h2>
+                <a href="https://metaso.cn/" class="tool-item" target="_blank">
+                    <div class="tool-icon">秘</div>
+                    <div class="tool-name">秘塔搜索</div>
+                    <div class="external-icon">↗</div>
+                </a>
+            </div>
+
+            <div class="category" data-category="视频制作">
+                <h2>🎬 视频制作</h2>
+                <a href="https://www.cinemaflow.ai/home-lp?gad_source=1&gclid=Cj0KCQiAi_G5BhDXARIsAN5SX7r4dlMrEx0GDno9VFdXm2-UDbomacAo0983haVYyi_rgtOaq_XMss8aAr00EALw_wcB" class="tool-item" target="_blank">
+                    <div class="tool-icon">🎥</div>
+                    <div class="tool-name">CinemaFlow</div>
+                    <div class="external-icon">↗</div>
+                </a>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>© 2025 AI工具导航站 | 探索AI的无限可能</p>
+        </div>
     </div>
-  </div>
 
-  <div class="section">
-    <h2>🎨 图像生成</h2>
-    <div class="card-grid">
-      <div class="card"><img src="https://www.google.com/s2/favicons?sz=32&domain=klingai.com" /><a href="https://app.klingai.com/cn/image-to-image/multi/new" target="_blank">Kling AI 图像转换</a></div>
-      <div class="card"><img src="https://www.google.com/s2/favicons?sz=32&domain=midjourneysref.com" /><a href="https://midjourneysref.com/" target="_blank">Midjourney 参考库</a></div>
-    </div>
-  </div>
+    <script>
+        // 搜索功能
+        const searchBox = document.getElementById('searchBox');
+        const toolsGrid = document.getElementById('toolsGrid');
+        const categories = document.querySelectorAll('.category');
+        const toolItems = document.querySelectorAll('.tool-item');
 
-  <div class="section">
-    <h2>📚 开发与资料</h2>
-    <div class="card-grid">
-      <div class="card"><img src="https://www.google.com/s2/favicons?sz=32&domain=platform.openai.com" /><a href="https://platform.openai.com/docs/overview" target="_blank">OpenAI 文档</a></div>
-      <div class="card"><img src="https://www.google.com/s2/favicons?sz=32&domain=cursor.com" /><a href="https://www.cursor.com/ja" target="_blank">Cursor 编程助手</a></div>
-      <div class="card"><img src="https://www.google.com/s2/favicons?sz=32&domain=metaso.cn" /><a href="https://metaso.cn/" target="_blank">Metaso AI 工具</a></div>
-      <div class="card"><img src="https://www.google.com/s2/favicons?sz=32&domain=gemini.google.com" /><a href="https://gemini.google.com/app" target="_blank">Google Gemini</a></div>
-    </div>
-  </div>
+        searchBox.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            
+            categories.forEach(category => {
+                const categoryTitle = category.querySelector('h2').textContent.toLowerCase();
+                const tools = category.querySelectorAll('.tool-item');
+                let hasVisibleTools = false;
 
-  <script>
-    function filterCards() {
-      const input = document.getElementById("searchInput").value.toLowerCase();
-      const cards = document.querySelectorAll(".card");
-      cards.forEach(card => {
-        card.classList.toggle("hidden", !card.innerText.toLowerCase().includes(input));
-      });
-    }
-  </script>
+                tools.forEach(tool => {
+                    const toolName = tool.querySelector('.tool-name').textContent.toLowerCase();
+                    if (toolName.includes(searchTerm) || categoryTitle.includes(searchTerm)) {
+                        tool.style.display = 'flex';
+                        hasVisibleTools = true;
+                    } else {
+                        tool.style.display = 'none';
+                    }
+                });
+
+                category.style.display = hasVisibleTools || searchTerm === '' ? 'block' : 'none';
+            });
+        });
+
+        // 添加动画延迟
+        categories.forEach((category, index) => {
+            category.style.animationDelay = `${index * 0.1}s`;
+        });
+
+        // 平滑滚动效果
+        document.querySelectorAll('.tool-item').forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateX(5px) scale(1.02)';
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateX(0) scale(1)';
+            });
+        });
+    </script>
 </body>
 </html>
