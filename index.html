@@ -9,10 +9,10 @@
   gtag('js', new Date());
 
   gtag('config', 'G-0HKBLQT59H');
-</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI工具导航站</title>
+    <title>AI工具导航站 - 发现最好的AI工具</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -33,162 +33,227 @@
             padding: 20px;
         }
 
+        /* Header */
         .header {
             text-align: center;
             margin-bottom: 40px;
-            color: white;
+            padding: 40px 0;
         }
 
         .header h1 {
+            color: white;
             font-size: 3rem;
-            font-weight: 700;
             margin-bottom: 10px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-            animation: fadeInDown 1s ease-out;
         }
 
         .header p {
+            color: rgba(255,255,255,0.9);
             font-size: 1.2rem;
-            opacity: 0.9;
-            animation: fadeInUp 1s ease-out 0.2s both;
-        }
-
-        .tools-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin-bottom: 40px;
-        }
-
-        .category {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 25px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            animation: fadeInUp 0.8s ease-out;
-        }
-
-        .category:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-        }
-
-        .category h2 {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            color: #4a5568;
-            border-bottom: 3px solid #667eea;
-            padding-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .tool-item {
-            display: flex;
-            align-items: center;
-            padding: 12px 15px;
-            margin: 8px 0;
-            background: #f8fafc;
-            border-radius: 12px;
-            text-decoration: none;
-            color: #2d3748;
-            transition: all 0.3s ease;
-            border-left: 4px solid transparent;
-        }
-
-        .tool-item:hover {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            border-left-color: #4299e1;
-            transform: translateX(5px);
-        }
-
-        .tool-icon {
-            width: 24px;
-            height: 24px;
-            margin-right: 12px;
-            border-radius: 4px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            font-size: 12px;
-        }
-
-        .tool-name {
-            font-weight: 500;
-            flex: 1;
-        }
-
-        .external-icon {
-            opacity: 0.5;
-            transition: opacity 0.3s ease;
-        }
-
-        .tool-item:hover .external-icon {
-            opacity: 1;
-        }
-
-        .search-container {
             margin-bottom: 30px;
-            display: flex;
-            justify-content: center;
         }
 
-        .search-box {
+        /* Search Bar */
+        .search-container {
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+
+        .search-input {
             width: 100%;
-            max-width: 500px;
-            padding: 15px 20px;
-            font-size: 1rem;
+            padding: 15px 50px 15px 20px;
             border: none;
-            border-radius: 25px;
-            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50px;
+            font-size: 16px;
+            background: rgba(255,255,255,0.95);
             backdrop-filter: blur(10px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
             outline: none;
             transition: all 0.3s ease;
         }
 
-        .search-box:focus {
+        .search-input:focus {
             background: white;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.15);
         }
 
+        .search-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+        }
+
+        /* Categories */
+        .categories {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 40px;
+        }
+
+        .category-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .category-btn:hover, .category-btn.active {
+            background: rgba(255,255,255,0.9);
+            color: #333;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Tools Grid */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .tool-card {
+            background: rgba(255,255,255,0.95);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .tool-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+        }
+
+        .tool-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .tool-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            margin-right: 15px;
+        }
+
+        .tool-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .tool-category {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            display: inline-block;
+        }
+
+        .tool-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .tool-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .tool-tag {
+            background: #f0f2f5;
+            color: #666;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+        }
+
+        .tool-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .tool-link {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tool-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .tool-rating {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #ffd700;
+        }
+
+        /* Footer */
         .footer {
             text-align: center;
-            color: rgba(255, 255, 255, 0.8);
-            margin-top: 40px;
-            padding: 20px;
+            padding: 40px 0;
+            color: rgba(255,255,255,0.8);
         }
 
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
         }
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .stat-item {
+            text-align: center;
         }
 
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: white;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
             .header h1 {
                 font-size: 2rem;
@@ -196,162 +261,399 @@
             
             .tools-grid {
                 grid-template-columns: 1fr;
-                gap: 20px;
             }
             
-            .category {
-                padding: 20px;
+            .categories {
+                gap: 8px;
             }
+            
+            .category-btn {
+                padding: 8px 16px;
+                font-size: 0.9rem;
+            }
+            
+            .stats {
+                gap: 20px;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: none;
+            text-align: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .spinner {
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top: 3px solid white;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Floating Action Button */
+        .fab {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .fab:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.4);
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <h1>🚀 AI工具导航站</h1>
-            <p>精选最优质的AI工具，助力您的创造力</p>
+        <!-- Header -->
+        <header class="header">
+            <h1><i class="fas fa-robot"></i> AI工具导航站</h1>
+            <p>发现最好的AI工具，提升工作效率，释放创造力</p>
+            
+            <!-- Search Bar -->
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="搜索AI工具..." id="searchInput">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+        </header>
+
+        <!-- Categories -->
+        <div class="categories">
+            <button class="category-btn active" data-category="all">全部</button>
+            <button class="category-btn" data-category="chat">AI对话</button>
+            <button class="category-btn" data-category="image">AI绘画</button>
+            <button class="category-btn" data-category="video">AI视频</button>
+            <button class="category-btn" data-category="writing">AI写作</button>
+            <button class="category-btn" data-category="code">AI编程</button>
+            <button class="category-btn" data-category="office">办公助手</button>
+            <button class="category-btn" data-category="audio">AI音频</button>
         </div>
 
-        <div class="search-container">
-            <input type="text" class="search-box" placeholder="搜索AI工具..." id="searchBox">
+        <!-- Loading -->
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <div>正在加载...</div>
         </div>
 
+        <!-- Tools Grid -->
         <div class="tools-grid" id="toolsGrid">
-            <div class="category" data-category="聊天对话">
-                <h2>💬 聊天对话</h2>
-                <a href="https://chatgpt.com/" class="tool-item" target="_blank">
-                    <div class="tool-icon">G</div>
-                    <div class="tool-name">ChatGPT</div>
-                    <div class="external-icon">↗</div>
-                </a>
-                <a href="https://www.kimi.com/" class="tool-item" target="_blank">
-                    <div class="tool-icon">K</div>
-                    <div class="tool-name">Kimi</div>
-                    <div class="external-icon">↗</div>
-                </a>
-                <a href="https://chat.deepseek.com/" class="tool-item" target="_blank">
-                    <div class="tool-icon">D</div>
-                    <div class="tool-name">DeepSeek</div>
-                    <div class="external-icon">↗</div>
-                </a>
-                <a href="https://www.doubao.com/chat/" class="tool-item" target="_blank">
-                    <div class="tool-icon">豆</div>
-                    <div class="tool-name">豆包</div>
-                    <div class="external-icon">↗</div>
-                </a>
-                <a href="https://gemini.google.com/" class="tool-item" target="_blank">
-                    <div class="tool-icon">G</div>
-                    <div class="tool-name">Gemini</div>
-                    <div class="external-icon">↗</div>
-                </a>
-            </div>
+            <!-- Tools will be dynamically inserted here -->
+        </div>
 
-            <div class="category" data-category="图像创作">
-                <h2>🎨 图像创作</h2>
-                <a href="https://app.klingai.com/cn/image-to-image/multi/new" class="tool-item" target="_blank">
-                    <div class="tool-icon">可</div>
-                    <div class="tool-name">可灵AI</div>
-                    <div class="external-icon">↗</div>
-                </a>
-                <a href="https://midjourneysref.com/" class="tool-item" target="_blank">
-                    <div class="tool-icon">M</div>
-                    <div class="tool-name">Midjourney参考</div>
-                    <div class="external-icon">↗</div>
-                </a>
-                <a href="https://www.canva.cn/" class="tool-item" target="_blank">
-                    <div class="tool-icon">C</div>
-                    <div class="tool-name">Canva设计</div>
-                    <div class="external-icon">↗</div>
-                </a>
+        <!-- Stats -->
+        <div class="stats">
+            <div class="stat-item">
+                <span class="stat-number" id="toolCount">0</span>
+                <span class="stat-label">AI工具</span>
             </div>
-
-            <div class="category" data-category="开发工具">
-                <h2>🛠️ 开发工具</h2>
-                <a href="https://platform.openai.com/docs/overview" class="tool-item" target="_blank">
-                    <div class="tool-icon">O</div>
-                    <div class="tool-name">OpenAI平台</div>
-                    <div class="external-icon">↗</div>
-                </a>
-                <a href="https://www.cursor.com/ja" class="tool-item" target="_blank">
-                    <div class="tool-icon">C</div>
-                    <div class="tool-name">Cursor编辑器</div>
-                    <div class="external-icon">↗</div>
-                </a>
-                <a href="https://www.coze.cn/" class="tool-item" target="_blank">
-                    <div class="tool-icon">扣</div>
-                    <div class="tool-name">扣子</div>
-                    <div class="external-icon">↗</div>
-                </a>
+            <div class="stat-item">
+                <span class="stat-number">8</span>
+                <span class="stat-label">分类</span>
             </div>
-
-            <div class="category" data-category="搜索引擎">
-                <h2>🔍 智能搜索</h2>
-                <a href="https://metaso.cn/" class="tool-item" target="_blank">
-                    <div class="tool-icon">秘</div>
-                    <div class="tool-name">秘塔搜索</div>
-                    <div class="external-icon">↗</div>
-                </a>
-            </div>
-
-            <div class="category" data-category="视频制作">
-                <h2>🎬 视频制作</h2>
-                <a href="https://www.cinemaflow.ai/home-lp?gad_source=1&gclid=Cj0KCQiAi_G5BhDXARIsAN5SX7r4dlMrEx0GDno9VFdXm2-UDbomacAo0983haVYyi_rgtOaq_XMss8aAr00EALw_wcB" class="tool-item" target="_blank">
-                    <div class="tool-icon">🎥</div>
-                    <div class="tool-name">CinemaFlow</div>
-                    <div class="external-icon">↗</div>
-                </a>
+            <div class="stat-item">
+                <span class="stat-number">10000+</span>
+                <span class="stat-label">用户</span>
             </div>
         </div>
 
-        <div class="footer">
-            <p>© 2025 AI工具导航站 | 探索AI的无限可能</p>
-        </div>
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2025 AI工具导航站. 助力AI时代，发现无限可能。</p>
+        </footer>
     </div>
 
+    <!-- Floating Action Button -->
+    <button class="fab" onclick="scrollToTop()">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
     <script>
-        // 搜索功能
-        const searchBox = document.getElementById('searchBox');
-        const toolsGrid = document.getElementById('toolsGrid');
-        const categories = document.querySelectorAll('.category');
-        const toolItems = document.querySelectorAll('.tool-item');
+        // AI工具数据
+        const aiTools = [
+            {
+                name: "ChatGPT",
+                category: "chat",
+                description: "OpenAI开发的强大AI对话助手，能够进行自然对话、回答问题、协助写作等。",
+                tags: ["对话", "问答", "写作", "翻译"],
+                icon: "fas fa-comments",
+                rating: 4.9,
+                link: "https://chat.openai.com"
+            },
+            {
+                name: "Midjourney",
+                category: "image",
+                description: "领先的AI图像生成工具，通过文字描述生成高质量的艺术作品和图像。",
+                tags: ["图像生成", "艺术创作", "设计"],
+                icon: "fas fa-palette",
+                rating: 4.8,
+                link: "https://midjourney.com"
+            },
+            {
+                name: "Claude",
+                category: "chat",
+                description: "Anthropic开发的AI助手，擅长分析、写作、数学和编程等多种任务。",
+                tags: ["对话", "分析", "写作", "编程"],
+                icon: "fas fa-brain",
+                rating: 4.7,
+                link: "https://claude.ai"
+            },
+            {
+                name: "Stable Diffusion",
+                category: "image",
+                description: "开源的AI图像生成模型，支持文本到图像的高质量生成。",
+                tags: ["开源", "图像生成", "可定制"],
+                icon: "fas fa-image",
+                rating: 4.6,
+                link: "https://stability.ai"
+            },
+            {
+                name: "GitHub Copilot",
+                category: "code",
+                description: "GitHub和OpenAI合作开发的AI编程助手，提供智能代码补全和建议。",
+                tags: ["编程", "代码补全", "开发工具"],
+                icon: "fas fa-code",
+                rating: 4.5,
+                link: "https://github.com/features/copilot"
+            },
+            {
+                name: "Runway ML",
+                category: "video",
+                description: "专业的AI视频编辑和生成平台，支持视频特效、动画制作等。",
+                tags: ["视频编辑", "特效", "动画"],
+                icon: "fas fa-video",
+                rating: 4.4,
+                link: "https://runwayml.com"
+            },
+            {
+                name: "Jasper AI",
+                category: "writing",
+                description: "专业的AI写作助手，帮助创建营销文案、博客文章和各种内容。",
+                tags: ["写作", "营销", "内容创作"],
+                icon: "fas fa-pen-fancy",
+                rating: 4.3,
+                link: "https://jasper.ai"
+            },
+            {
+                name: "Notion AI",
+                category: "office",
+                description: "集成在Notion中的AI助手，帮助整理笔记、生成内容和提高工作效率。",
+                tags: ["笔记", "办公", "效率"],
+                icon: "fas fa-sticky-note",
+                rating: 4.2,
+                link: "https://notion.so"
+            },
+            {
+                name: "ElevenLabs",
+                category: "audio",
+                description: "先进的AI语音合成平台，能够生成自然流畅的人工语音。",
+                tags: ["语音合成", "配音", "音频"],
+                icon: "fas fa-microphone",
+                rating: 4.5,
+                link: "https://elevenlabs.io"
+            },
+            {
+                name: "DALL-E 2",
+                category: "image",
+                description: "OpenAI开发的AI图像生成系统，能够根据文字描述创建原创图像。",
+                tags: ["图像生成", "创意设计"],
+                icon: "fas fa-magic",
+                rating: 4.6,
+                link: "https://openai.com/dall-e-2"
+            },
+            {
+                name: "Copy.ai",
+                category: "writing",
+                description: "AI驱动的营销文案生成工具，帮助创建广告文案、邮件内容等。",
+                tags: ["营销文案", "广告", "邮件"],
+                icon: "fas fa-bullhorn",
+                rating: 4.1,
+                link: "https://copy.ai"
+            },
+            {
+                name: "Synthesia",
+                category: "video",
+                description: "AI视频生成平台，可以创建带有AI主播的专业视频内容。",
+                tags: ["AI主播", "视频生成", "培训视频"],
+                icon: "fas fa-user-tie",
+                rating: 4.3,
+                link: "https://synthesia.io"
+            }
+        ];
 
-        searchBox.addEventListener('input', function() {
-            const searchTerm = this.value.toLowerCase();
-            
-            categories.forEach(category => {
-                const categoryTitle = category.querySelector('h2').textContent.toLowerCase();
-                const tools = category.querySelectorAll('.tool-item');
-                let hasVisibleTools = false;
+        let currentCategory = 'all';
+        let currentTools = [...aiTools];
 
-                tools.forEach(tool => {
-                    const toolName = tool.querySelector('.tool-name').textContent.toLowerCase();
-                    if (toolName.includes(searchTerm) || categoryTitle.includes(searchTerm)) {
-                        tool.style.display = 'flex';
-                        hasVisibleTools = true;
-                    } else {
-                        tool.style.display = 'none';
-                    }
+        // 初始化页面
+        function init() {
+            renderTools(currentTools);
+            updateToolCount();
+            setupEventListeners();
+        }
+
+        // 渲染工具卡片
+        function renderTools(tools) {
+            const toolsGrid = document.getElementById('toolsGrid');
+            toolsGrid.innerHTML = '';
+
+            tools.forEach(tool => {
+                const toolCard = createToolCard(tool);
+                toolsGrid.appendChild(toolCard);
+            });
+        }
+
+        // 创建工具卡片
+        function createToolCard(tool) {
+            const card = document.createElement('div');
+            card.className = 'tool-card';
+            card.innerHTML = `
+                <div class="tool-header">
+                    <div class="tool-icon">
+                        <i class="${tool.icon}"></i>
+                    </div>
+                    <div class="tool-info">
+                        <h3>${tool.name}</h3>
+                        <span class="tool-category">${getCategoryName(tool.category)}</span>
+                    </div>
+                </div>
+                <p class="tool-description">${tool.description}</p>
+                <div class="tool-tags">
+                    ${tool.tags.map(tag => `<span class="tool-tag">${tag}</span>`).join('')}
+                </div>
+                <div class="tool-footer">
+                    <a href="${tool.link}" target="_blank" class="tool-link">
+                        <span>访问工具</span>
+                        <i class="fas fa-external-link-alt"></i>
+                    </a>
+                    <div class="tool-rating">
+                        <i class="fas fa-star"></i>
+                        <span>${tool.rating}</span>
+                    </div>
+                </div>
+            `;
+            return card;
+        }
+
+        // 获取分类名称
+        function getCategoryName(category) {
+            const categoryNames = {
+                'chat': 'AI对话',
+                'image': 'AI绘画',
+                'video': 'AI视频',
+                'writing': 'AI写作',
+                'code': 'AI编程',
+                'office': '办公助手',
+                'audio': 'AI音频'
+            };
+            return categoryNames[category] || category;
+        }
+
+        // 过滤工具
+        function filterTools(category) {
+            if (category === 'all') {
+                currentTools = [...aiTools];
+            } else {
+                currentTools = aiTools.filter(tool => tool.category === category);
+            }
+            renderTools(currentTools);
+            updateToolCount();
+        }
+
+        // 搜索工具
+        function searchTools(query) {
+            if (!query.trim()) {
+                filterTools(currentCategory);
+                return;
+            }
+
+            currentTools = aiTools.filter(tool => {
+                return tool.name.toLowerCase().includes(query.toLowerCase()) ||
+                       tool.description.toLowerCase().includes(query.toLowerCase()) ||
+                       tool.tags.some(tag => tag.toLowerCase().includes(query.toLowerCase()));
+            });
+
+            if (currentCategory !== 'all') {
+                currentTools = currentTools.filter(tool => tool.category === currentCategory);
+            }
+
+            renderTools(currentTools);
+            updateToolCount();
+        }
+
+        // 更新工具数量
+        function updateToolCount() {
+            document.getElementById('toolCount').textContent = currentTools.length;
+        }
+
+        // 设置事件监听器
+        function setupEventListeners() {
+            // 分类按钮点击
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // 更新活跃状态
+                    document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    
+                    // 过滤工具
+                    currentCategory = btn.dataset.category;
+                    filterTools(currentCategory);
                 });
-
-                category.style.display = hasVisibleTools || searchTerm === '' ? 'block' : 'none';
             });
+
+            // 搜索输入
+            const searchInput = document.getElementById('searchInput');
+            searchInput.addEventListener('input', (e) => {
+                searchTools(e.target.value);
+            });
+
+            // 搜索框回车
+            searchInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    searchTools(e.target.value);
+                }
+            });
+        }
+
+        // 回到顶部
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // 显示/隐藏浮动按钮
+        window.addEventListener('scroll', () => {
+            const fab = document.querySelector('.fab');
+            if (window.scrollY > 300) {
+                fab.style.display = 'block';
+            } else {
+                fab.style.display = 'none';
+            }
         });
 
-        // 添加动画延迟
-        categories.forEach((category, index) => {
-            category.style.animationDelay = `${index * 0.1}s`;
-        });
-
-        // 平滑滚动效果
-        document.querySelectorAll('.tool-item').forEach(item => {
-            item.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateX(5px) scale(1.02)';
-            });
-            
-            item.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateX(0) scale(1)';
-            });
-        });
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
 </html>
